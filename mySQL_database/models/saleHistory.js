@@ -19,14 +19,6 @@ SaleHistory.init(
         key: "sale_property_id",
       },
     },
-    bidding_client_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: "bidding_clients",
-        key: "bidding_client_id",
-      },
-    },
     sale_price: {
       type: DataTypes.INTEGER,
       allowNull: false,

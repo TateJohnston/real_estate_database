@@ -1,7 +1,7 @@
 "use strict";
 
 const Bidders = require("./bidders");
-const BiddingClients = require("./biddingClients");
+const SalePropertyBids = require("./salePropertyBids");
 const Clients = require("./clients");
 const HeadTenants = require("./headTenants");
 const Payments = require("./payments");
@@ -15,38 +15,16 @@ const SubTenants = require("./subTenants");
 
 async function init() {
   await Realtors.sync();
-}
-async function init() {
   await Clients.sync();
-}
-async function init() {
   await Properties.sync();
-}
-async function init() {
   await PropertyDetails.sync();
-}
-async function init() {
   await SaleProperties.sync();
-}
-async function init() {
   await Bidders.sync();
-}
-async function init() {
-  await BiddingClients.sync();
-}
-async function init() {
+  await SalePropertyBids.sync();
   await SaleHistory.sync();
-}
-async function init() {
   await RentalProperties.sync();
-}
-async function init() {
   await HeadTenants.sync();
-}
-async function init() {
   await SubTenants.sync();
-}
-async function init() {
   await Payments.sync();
 }
 
@@ -59,7 +37,7 @@ module.exports = {
   PropertyDetails,
   SaleProperties,
   Bidders,
-  BiddingClients,
+  SalePropertyBids,
   SaleHistory,
   RentalProperties,
   HeadTenants,

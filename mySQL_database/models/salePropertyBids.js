@@ -1,19 +1,14 @@
 const { DataTypes, Model } = require("sequelize");
 let dbConnect = require("../dbConnect");
 const sequelizeInstance = dbConnect.Sequelize;
-class BiddingClients extends Model {}
+class SalePropertyBids extends Model {}
 // Sequelize will create this table if it doesn't exist on startup
-BiddingClients.init(
+SalePropertyBids.init(
   {
-    bidding_client_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-    },
     sale_property_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      primaryKey: true,
       references: {
         model: "sale_properties",
         key: "sale_property_id",
@@ -21,7 +16,7 @@ BiddingClients.init(
     },
     bidder_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: "bidders",
         key: "bidder_id",
@@ -29,14 +24,14 @@ BiddingClients.init(
     },
     bid: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
   },
   {
     sequelize: sequelizeInstance,
-    modelName: "bidding_clients",
+    modelName: "sale_property_bids",
     timestamps: true,
     freezeTableName: true,
   }
 );
-module.exports = BiddingClients;
+module.exports = SalePropertyBids;
