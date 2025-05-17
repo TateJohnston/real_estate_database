@@ -2,7 +2,7 @@
 const Models = require("../models");
 
 const getPropertyDetails = (res) => {
-  Models.PropertyDetails.find({})
+  Models.PropertyDetails.findAll({})
     .then((data) => {
       res.send({ result: 200, data: data });
     })
