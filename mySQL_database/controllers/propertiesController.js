@@ -1,8 +1,30 @@
 "use strict";
 const Models = require("../models");
+const { sequelize } = require("../models/bidders");
 
 const getProperties = (res) => {
-  Models.Properties.findAll({})
+  const query = `
+      SELECT
+        realtor_id,
+        realtor_name,
+        realtor_number,
+        realtor_email,
+        owner_name,
+        owner_email,
+        owner_number,
+        property_id,
+        property_address,
+        sale_or_lease,
+        property_type,
+        bedrooms,
+        bathrooms,
+        land_size,
+        createdAt
+      FROM property_info;`;
+  sequelize
+    .query(query, {
+      type: sequelize.QueryTypes.SELECT,
+    })
     .then((data) => {
       res.send({ result: 200, data: data });
     })
@@ -49,14 +71,36 @@ const deleteProperty = (req, res) => {
 };
 
 const getPropertyDetails = (req, res) => {
-  const propertyId = req.params.propertyId;
-  Models.PropertyDetails.findByPk(propertyId)
+  const propertyId = req.params.propertyid;
+  const query = `
+  SELECT * 
+  FROM property_report
+  WHERE property_id = ${propertyId}`;
+  sequelize
+    .query(query, {
+      type: sequelize.QueryTypes.SELECT,
+    })
     .then((data) => {
-      if (data) {
-        res.send({ result: 200, data: data });
-      } else {
-        res.status(404).send({ result: 404, message: "Property not found" });
-      }
+      res.send({ result: 200, data: data });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send({ result: 500, error: err.message });
+    });
+};
+
+const getPropertiesByRealtor = (req, res) => {
+  const realtorId = req.params.realtorid;
+  const query = `
+  SELECT * 
+  FROM property_report
+  WHERE realtor_id = ${realtorId}`;
+  sequelize
+    .query(query, {
+      type: sequelize.QueryTypes.SELECT,
+    })
+    .then((data) => {
+      res.send({ result: 200, data: data });
     })
     .catch((err) => {
       console.log(err);
@@ -70,4 +114,5 @@ module.exports = {
   updateProperty,
   deleteProperty,
   getPropertyDetails,
+  getPropertiesByRealtor,
 };

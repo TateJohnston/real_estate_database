@@ -18,8 +18,12 @@ router.delete("/:id", (req, res) => {
   propertiesController.deleteProperty(req, res);
 });
 
-router.get("/:propertyId/details", (req, res) => {
+router.get("/:propertyid", (req, res) => {
   propertiesController.getPropertyDetails(req, res);
+});
+
+router.get("/realtors/:realtorid", (req, res) => {
+  propertiesController.getPropertiesByRealtor(req, res);
 });
 
 module.exports = router;
