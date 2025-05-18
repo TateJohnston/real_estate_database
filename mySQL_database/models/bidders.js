@@ -18,10 +18,12 @@ Bidders.init(
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     contact_number: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
   },
   {
