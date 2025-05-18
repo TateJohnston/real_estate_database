@@ -34,4 +34,15 @@ router.put("/payments/:rentalpropertyid", (req, res) => {
   rentalPropertiesController.editPayment(req, res);
 });
 
+router.get("/fulldata/:rentalpropertyid", (req, res) => {
+  rentalPropertiesController.getRentalPropertyData(req, res);
+});
+
+router.get("/payments/report", (req, res) => {
+  rentalPropertiesController.getRentalPaymentsReport(req, res);
+});
+router.get("/payments/report/overdue", (req, res) => {
+  rentalPropertiesController.getOverdueRentalPaymentsReport(req, res);
+});
+
 module.exports = router;

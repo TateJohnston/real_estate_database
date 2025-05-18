@@ -32,6 +32,10 @@ Properties.init(
       allowNull: false,
       unique: true,
     },
+    sale_or_lease: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   {
     sequelize: sequelizeInstance,
