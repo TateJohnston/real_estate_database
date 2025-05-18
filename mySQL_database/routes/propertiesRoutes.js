@@ -17,4 +17,9 @@ router.put("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
   propertiesController.deleteProperty(req, res);
 });
+
+router.get("/:propertyId/details", (req, res) => {
+  propertiesController.getPropertyDetails(req, res);
+});
+
 module.exports = router;

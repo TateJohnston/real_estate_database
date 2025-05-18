@@ -17,4 +17,21 @@ router.put("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
   rentalPropertiesController.deleteRentalProperty(req, res);
 });
+
+router.get("/headtenants", (req, res) => {
+  rentalPropertiesController.getAllHeadTenants(req, res);
+});
+
+router.get("/subtenants/:headtenantid", (req, res) => {
+  rentalPropertiesController.getRentalPropertySubTenants(req, res);
+});
+
+router.get("/payments", (req, res) => {
+  rentalPropertiesController.getPayments(req, res);
+});
+
+router.put("/payments/:rentalpropertyid", (req, res) => {
+  rentalPropertiesController.editPayment(req, res);
+});
+
 module.exports = router;

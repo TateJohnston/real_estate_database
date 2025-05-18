@@ -47,10 +47,27 @@ const deleteProperty = (req, res) => {
       res.send({ result: 500, error: err.message });
     });
 };
+
+const getPropertyDetails = (req, res) => {
+  const propertyId = req.params.propertyId;
+  Models.PropertyDetails.findByPk(propertyId)
+    .then((data) => {
+      if (data) {
+        res.send({ result: 200, data: data });
+      } else {
+        res.status(404).send({ result: 404, message: "Property not found" });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send({ result: 500, error: err.message });
+    });
+};
+
 module.exports = {
   getProperties,
   createProperty,
   updateProperty,
   deleteProperty,
+  getPropertyDetails,
 };
-// ++ Test updating and deleting a user using Postman

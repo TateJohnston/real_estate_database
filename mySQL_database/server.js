@@ -5,15 +5,8 @@ const app = express();
 const realtorRoutes = require("./routes/realtorsRoutes");
 const clientRoutes = require("./routes/clientsRoutes");
 const propertyRoutes = require("./routes/propertiesRoutes");
-const propertyDetailsRoutes = require("./routes/propertyDetailsRoutes");
 const salePropertiesRoutes = require("./routes/salePropertiesRoutes");
-const biddersRoutes = require("./routes/biddersRoutes");
-const salePropertyBidsRoutes = require("./routes/salePropertyBidsRoutes");
-const saleHistoryRoutes = require("./routes/saleHistoryRoutes");
 const rentalPropertyRoutes = require("./routes/rentalPropertiesRoutes");
-const headTenantRoutes = require("./routes/headTenantsRoutes");
-const subTenantRoutes = require("./routes/subTenantsRoutes");
-const paymentsRoutes = require("./routes/paymentsRoutes");
 
 app.use(express.json());
 app.get("/", (req, res) => {
@@ -23,15 +16,8 @@ app.get("/", (req, res) => {
 app.use("/api/realtors", realtorRoutes);
 app.use("/api/clients", clientRoutes);
 app.use("/api/properties", propertyRoutes);
-app.use("/api/propertyDetails", propertyDetailsRoutes);
 app.use("/api/saleProperties", salePropertiesRoutes);
-app.use("/api/bidders", biddersRoutes);
-app.use("/api/salePropertyBids", salePropertyBidsRoutes);
-app.use("/api/saleHistory", saleHistoryRoutes);
 app.use("/api/rentalProperties", rentalPropertyRoutes);
-app.use("/api/headTenants", headTenantRoutes);
-app.use("/api/subTenants", subTenantRoutes);
-app.use("/api/payments", paymentsRoutes);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
