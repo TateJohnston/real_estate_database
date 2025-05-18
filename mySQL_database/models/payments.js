@@ -21,15 +21,15 @@ Payments.init(
     },
     monthly_payment_day: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
     },
     monthly_payment_amount: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
     },
     paid_status: {
       type: DataTypes.BOOLEAN,
-      allowNull: true,
+      allowNull: false,
     },
   },
   {

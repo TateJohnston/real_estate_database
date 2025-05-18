@@ -47,10 +47,66 @@ const deleteSalesProperty = (req, res) => {
       res.send({ result: 500, error: err.message });
     });
 };
+
+const getAllBids = (req, res) => {
+  Models.SalePropertyBids.findAll({})
+    .then((data) => {
+      res.status(200).send({ result: 200, data: data });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send({ result: 500, message: err.message });
+    });
+};
+
+const getSalePropertyBids = (req, res) => {
+  const salePropertyId = req.params.salepropertyid;
+  Models.SalePropertyBids.findByPk(salePropertyId)
+    .then((data) => {
+      if (data) {
+        res.send({ result: 200, data: data });
+      } else {
+        res
+          .status(404)
+          .send({ result: 404, message: "Sale Property not found" });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send({ result: 500, error: err.message });
+    });
+};
+
+const getSaleHistory = (req, res) => {
+  Models.SaleHistory.findAll({})
+    .then((data) => {
+      res.send({ result: 200, data: data });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send({ result: 500, error: err.message });
+    });
+};
+
+const getAllBidders = (req, res) => {
+  Models.Bidders.findAll({})
+    .then((data) => {
+      res.send({ result: 200, data: data });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send({ result: 500, error: err.message });
+    });
+};
+
 module.exports = {
   getSalesProperties,
   createSalesProperty,
   updateSalesProperty,
   deleteSalesProperty,
+  getSalePropertyBids,
+  getAllBids,
+  getSaleHistory,
+  getAllBidders,
 };
 // ++ Test updating and deleting a user using Postman
