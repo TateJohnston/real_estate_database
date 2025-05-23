@@ -10,11 +10,16 @@ const rentalPropertyRoutes = require("./routes/rentalPropertiesRoutes");
 const accountsRoutes = require("./routes/accountsRoutes");
 const tenantsRoutes = require("./routes/tenantsRoutes");
 const biddersRoutes = require("./routes/biddersRoutes");
+const swaggerUi = require("swagger-ui-express");
+
+swaggerDocument = require("./swagger.json");
 
 app.use(express.json());
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to my mySQL application." });
 });
+
+app.use("/mp3", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use("/api/realtors", realtorRoutes);
 app.use("/api/clients", clientRoutes);

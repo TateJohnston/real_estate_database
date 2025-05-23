@@ -120,7 +120,7 @@ const subscribeEmailList = async (req, res) => {
   }
 };
 
-const unsubscibeEmailList = async (req, res) => {
+const unsubscribeEmailList = async (req, res) => {
   const email = req.query.email;
   try {
     const emailExists = await Models.EmailList.findOne({
@@ -158,5 +158,5 @@ module.exports = {
   deleteClient,
   getEmailList,
   subscribeEmailList,
-  unsubscibeEmailList,
+  unsubscribeEmailList,
 };

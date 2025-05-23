@@ -1,0 +1,415 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Real_Estate_Database",
+    "description": "Real estate database that manages realtors, clients and properties",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:8081",
+  "basePath": "/api",
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/realtors": {
+      "get": {
+        "tags": ["Realtors"],
+        "summary": "Fetch data on realtors",
+        "responses": {
+          "200": {
+            "description": "Successful realtors fetch"
+          },
+          "500": {
+            "description": "Server error in fetching realtors"
+          }
+        }
+      }
+    },
+    "/realtors/{realtorid}": {
+      "get": {
+        "tags": ["Realtors"],
+        "summary": "Get realtor by realtor ID",
+        "parameters": [
+          {
+            "name": "realtorid",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "The ID of the realtor you want to fetch"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Fetch"
+          },
+          "404": {
+            "description": "Realtor not found"
+          },
+          "500": { "description": "Unsuccessful Fetch" }
+        }
+      }
+    },
+    "/accounts/fortnightlyreport": {
+      "get": {
+        "tags": ["Accounts"],
+        "summary": "Get fortnightly report for Payroll",
+
+        "responses": {
+          "200": { "description": "Successful Fetch" },
+          "500": { "description": "Unsuccessful Fetch" }
+        }
+      }
+    },
+    "/accounts/payments/report": {
+      "get": {
+        "tags": ["Accounts"],
+        "summary": "Get full rental property payments report",
+        "responses": {
+          "200": { "description": "Successful Fetch" },
+          "500": { "description": "Unsuccessful Fetch" }
+        }
+      }
+    },
+    "/accounts/payments/report/overdue": {
+      "get": {
+        "tags": ["Accounts"],
+        "summary": "Get full rental property report where rent payments are overdue",
+        "responses": {
+          "200": { "description": "Successful Fetch" },
+          "500": { "description": "Unsuccessful Fetch" }
+        }
+      }
+    },
+    "/bidders/bids/{salepropertyid}/{bidderid}": {
+      "put": {
+        "tags": ["Bids"],
+        "summary": "Update Bid using sale property ID and bidder ID",
+        "parameters": [
+          {
+            "name": "salepropertyid",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "The ID of the sale property you want to reference"
+          },
+
+          {
+            "name": "bidderid",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "The ID of the bidder who's bid will be updated"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "New bid",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "bid": {
+                  "type": "number",
+                  "example": 75000
+                }
+              },
+              "required": ["bid"]
+            }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Bid Successfully updated" },
+          "404": { "description": "Invalid Parameter" },
+          "500": { "description": "Unsuccessful Fetch" }
+        }
+      }
+    },
+    "/bidders/bids/{salepropertyid}": {
+      "get": {
+        "tags": ["Bids"],
+        "summary": "Get all bids for a specific sale property using sale property ID",
+        "parameters": [
+          {
+            "name": "salepropertyid",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "The ID of the sale property you want to reference"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Successful Fetch" },
+          "404": { "description": "Sale property not found" },
+          "500": { "description": "Unsuccessful Fetch" }
+        }
+      }
+    },
+    "/clients/create": {
+      "post": {
+        "tags": ["Clients"],
+        "summary": "Create a Client",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "Create Client",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "new client"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "newclient@gmail.com"
+                },
+                "contact_number": {
+                  "type": "number",
+                  "example": "0445987878"
+                },
+                "address": {
+                  "type": "string",
+                  "example": "fake address, fake suburb, 6110"
+                }
+              },
+              "required": ["name", "email", "contact_number", "address"]
+            }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Client successfully created" },
+          "500": { "description": "Post failed" }
+        }
+      }
+    },
+    "/clients/mailinglist/subscribe": {
+      "post": {
+        "tags": ["Clients"],
+        "summary": "Subscribe to mailing list",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "Create Client",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "new client"
+                },
+                "relationship": {
+                  "type": "string",
+                  "example": "newclient@gmail.com"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "newclient@gmail.com"
+                }
+              },
+              "required": ["name", "relationship", "email"]
+            }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Successfully subscribed to mailing list" },
+          "404": { "description": "Email already subscribed to mailing list" },
+          "500": { "description": "Post failed" }
+        }
+      }
+    },
+    "/clients/mailinglist/unsubscribe": {
+      "delete": {
+        "tags": ["Clients"],
+        "summary": "Unsubscribe to mailing list",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "email",
+            "required": true,
+            "description": "email"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Successfully unsubscribed to mailing list" },
+          "404": { "description": "Email not found in mailling list" },
+          "500": { "description": "Error" }
+        }
+      }
+    },
+    "/properties/{salepropertyid}": {
+      "get": {
+        "tags": ["Properties"],
+        "summary": "Get property details",
+        "parameters": [
+          {
+            "name": "salepropertyid",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "The ID of the property you want to reference"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Successful Fetch" },
+          "404": { "description": "Property not found" },
+          "500": { "description": "Unsuccessful Fetch" }
+        }
+      }
+    },
+    "/properties/realtors/{realtorid}": {
+      "get": {
+        "tags": ["Properties"],
+        "summary": "Get properties by realtor using realtor id",
+        "parameters": [
+          {
+            "name": "realtorid",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "The ID of the realtor you want to reference"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Successful Fetch" },
+          "404": { "description": "Realtor not found" },
+          "500": { "description": "Unsuccessful Fetch" }
+        }
+      }
+    },
+    "/rentalproperties/fulldata/{rentalpropertyid}": {
+      "get": {
+        "tags": ["Rental properties"],
+        "summary": "Get rental property report by using rental property id",
+        "parameters": [
+          {
+            "name": "rentalpropertyid",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "The ID of the rental property you want to reference"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Successful Fetch" },
+          "404": { "description": "Sale property not found" },
+          "500": { "description": "Unsuccessful Fetch" }
+        }
+      }
+    },
+    "/rentalproperties/{rentalpropertyid}": {
+      "delete": {
+        "tags": ["Rental properties"],
+        "summary": "Delete rental property and payments,head_tenants and sub_tenants that reference it",
+        "parameters": [
+          {
+            "name": "rentalpropertyid",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "The ID of the rental property you want to reference"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Rental property successfully deleted" },
+          "404": { "description": "Rental property not found" },
+          "500": { "description": "Error" }
+        }
+      }
+    },
+    "/saleproperties/report": {
+      "get": {
+        "tags": ["Sale Properties"],
+        "summary": "Get sale properties report",
+        "responses": {
+          "200": {
+            "description": "Successful Fetch"
+          },
+          "500": { "description": "Unsuccessful Fetch" }
+        }
+      }
+    },
+
+    "/saleproperties/history": {
+      "get": {
+        "tags": ["Sale Properties"],
+        "summary": "Get sale history for company",
+        "responses": {
+          "200": {
+            "description": "Successful Fetch"
+          },
+          "500": { "description": "Unsuccessful Fetch" }
+        }
+      }
+    },
+    "/saleproperties/propertysold/{salepropertyid}": {
+      "put": {
+        "tags": ["Sale Properties"],
+        "summary": "Update sale property to sold and then add it to sale history",
+        "parameters": [
+          {
+            "name": "salepropertyid",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "The ID of the sale property you want to reference"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sale property successfully sold and moved to sale history"
+          },
+          "404": { "description": "Sale property not found" },
+          "500": { "description": "Error" }
+        }
+      }
+    },
+    "/tenants/subtenant/create": {
+      "post": {
+        "tags": ["Tenants"],
+        "summary": "Create Sub Tenant",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "Create Sub Tenant",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "head_tenant_id": {
+                  "type": "number",
+                  "example": "1"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "new sub tenant"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "newsubtenant@gmail.com"
+                },
+                "contact_number": {
+                  "type": "integer",
+                  "example": "0445987878"
+                }
+              },
+              "required": ["head_tenant_id", "name", "contact_number", "email"]
+            }
+          }
+        ],
+        "responses": {
+          "200": { "description": "New sub tenant successfully created" },
+          "500": { "description": "Error Creating Sub Tenant" }
+        }
+      }
+    }
+  }
+}

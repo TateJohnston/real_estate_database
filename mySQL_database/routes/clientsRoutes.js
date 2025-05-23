@@ -27,6 +27,6 @@ router.post("/mailinglist/subscribe", (req, res) => {
 });
 
 router.delete("/mailinglist/unsubscribe", (req, res) => {
-  clientsController.unsubscibeEmailList(req, res);
+  clientsController.unsubscribeEmailList(req, res);
 });
 module.exports = router;
