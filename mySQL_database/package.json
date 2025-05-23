@@ -1,0 +1,21 @@
+{
+  "name": "mysql_database",
+  "version": "1.0.0",
+  "description": "real_estate_database",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tate Johnston",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.9.0",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mysql2": "^3.14.1",
+    "nodemon": "^3.1.10",
+    "sequelize": "^6.37.7",
+    "swagger-ui-express": "^5.0.1"
+  }
+}
