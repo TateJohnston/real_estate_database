@@ -1,4 +1,5 @@
 "use strict";
+
 const Models = require("../models");
 const { sequelize, create } = require("../models/bidders");
 
