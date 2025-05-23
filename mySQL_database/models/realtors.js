@@ -1,5 +1,6 @@
 const { DataTypes, Model } = require("sequelize");
 let dbConnect = require("../dbConnect");
+const Properties = require("./properties");
 const sequelizeInstance = dbConnect.Sequelize;
 class Realtors extends Model {}
 
@@ -41,4 +42,6 @@ Realtors.init(
     freezeTableName: true,
   }
 );
+
+Realtors.hasMany(Properties, { foreignKey: "realtor_id" });
 module.exports = Realtors;
