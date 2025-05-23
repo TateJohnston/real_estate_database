@@ -23,6 +23,22 @@ SaleHistory.init(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    realtor_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "realtors",
+        key: "realtor_id",
+      },
+    },
+    realtor_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    realtor_commission: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   {
     sequelize: sequelizeInstance,

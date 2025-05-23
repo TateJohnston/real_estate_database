@@ -21,6 +21,7 @@ SalePropertyBids.init(
         model: "bidders",
         key: "bidder_id",
       },
+      onDelete: "CASCADE",
     },
     bid: {
       type: DataTypes.INTEGER,
