@@ -10,11 +10,15 @@ router.post("/create", (req, res) => {
   propertiesController.createProperty(req.body, res);
 });
 
-router.put("/:id", (req, res) => {
+router.post("/details/create", (req, res) => {
+  propertiesController.createPropertyDetails(req.body, res);
+});
+
+router.put("/:propertyid", (req, res) => {
   propertiesController.updateProperty(req, res);
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:propertyid", (req, res) => {
   propertiesController.deleteProperty(req, res);
 });
 

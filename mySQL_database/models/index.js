@@ -12,6 +12,7 @@ const RentalProperties = require("./rentalProperties");
 const SaleHistory = require("./saleHistory");
 const SaleProperties = require("./saleProperties");
 const SubTenants = require("./subTenants");
+const EmailList = require("./emailList");
 
 async function init() {
   await Realtors.sync();
@@ -26,6 +27,7 @@ async function init() {
   await HeadTenants.sync();
   await SubTenants.sync();
   await Payments.sync();
+  await EmailList.sync();
 }
 
 init();
@@ -43,4 +45,5 @@ module.exports = {
   HeadTenants,
   SubTenants,
   Payments,
+  EmailList,
 };

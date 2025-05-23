@@ -7,6 +7,9 @@ const clientRoutes = require("./routes/clientsRoutes");
 const propertyRoutes = require("./routes/propertiesRoutes");
 const salePropertiesRoutes = require("./routes/salePropertiesRoutes");
 const rentalPropertyRoutes = require("./routes/rentalPropertiesRoutes");
+const accountsRoutes = require("./routes/accountsRoutes");
+const tenantsRoutes = require("./routes/tenantsRoutes");
+const biddersRoutes = require("./routes/biddersRoutes");
 
 app.use(express.json());
 app.get("/", (req, res) => {
@@ -18,6 +21,9 @@ app.use("/api/clients", clientRoutes);
 app.use("/api/properties", propertyRoutes);
 app.use("/api/saleProperties", salePropertiesRoutes);
 app.use("/api/rentalProperties", rentalPropertyRoutes);
+app.use("/api/accounts", accountsRoutes);
+app.use("/api/tenants", tenantsRoutes);
+app.use("/api/bidders", biddersRoutes);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

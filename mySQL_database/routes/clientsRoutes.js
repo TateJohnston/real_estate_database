@@ -10,11 +10,23 @@ router.post("/create", (req, res) => {
   clientsController.createClient(req.body, res);
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:clientid", (req, res) => {
   clientsController.updateClient(req, res);
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:clientid", (req, res) => {
   clientsController.deleteClient(req, res);
+});
+
+router.get("/mailinglist", (req, res) => {
+  clientsController.getEmailList(req, res);
+});
+
+router.post("/mailinglist/subscribe", (req, res) => {
+  clientsController.subscribeEmailList(req, res);
+});
+
+router.delete("/mailinglist/unsubscribe", (req, res) => {
+  clientsController.unsubscibeEmailList(req, res);
 });
 module.exports = router;
