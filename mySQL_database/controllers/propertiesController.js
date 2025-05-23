@@ -158,28 +158,51 @@ const getPropertiesByRealtor = async (req, res) => {
 
   const realtorExists = await Models.Realtors.findOne({
     where: { realtor_id: realtorID },
+    attributes: [
+      "realtor_id",
+      ["name", "realtor_name"],
+      ["contact_number", "realtor_number"],
+      ["email", "realtor_email"],
+    ],
   });
 
-  if (realtorExists) {
+  if (!realtorExists) {
+    return res.status(404).send({
+      result: 404,
+      message: `Realtor with realtor_id ${realtorID} doesn't exist`,
+    });
+  }
+
+  try {
     const query = `
-    SELECT * 
+    SELECT 
+      owner_name,
+      owner_email,
+      owner_number,
+      property_id,
+      property_address,
+      sale_or_lease,
+      property_type,
+      bedrooms,
+      bathrooms,
+      land_size,
+      createdAt
     FROM property_report
     WHERE realtor_id = ${realtorID}`;
-    sequelize
-      .query(query, {
-        type: sequelize.QueryTypes.SELECT,
-      })
-      .then((data) => {
-        res.send({ result: 200, data: data });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.send({ result: 500, error: err.message });
-      });
-  } else {
-    res.status(404).send({
-      status: 404,
-      message: `Realtor with realtor_id ${realtorID} does not exist`,
+    const realtorPropertyData = await sequelize.query(query, {
+      type: sequelize.QueryTypes.SELECT,
+    });
+
+    const fullData = {
+      realtor: realtorExists,
+      properties: [...realtorPropertyData],
+    };
+
+    res.send({ result: 200, data: fullData });
+  } catch (err) {
+    res.status(500).send({
+      status: 500,
+      error: err.message,
     });
   }
 };
