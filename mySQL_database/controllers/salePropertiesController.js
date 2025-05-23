@@ -117,8 +117,7 @@ const updateToSold = async (req, res) => {
       }
     )
       .then((data) => {
-        res.send({ result: 200, data: data });
-        moveToSaleHistory(salePropertyID);
+        moveToSaleHistory(salePropertyID, res);
       })
       .catch((err) => {
         console.log(err);
@@ -132,22 +131,21 @@ const updateToSold = async (req, res) => {
   }
 };
 
-const moveToSaleHistory = async (salePropertyID) => {
-  let exists = false;
-  await Models.SaleHistory.findOne({
+const moveToSaleHistory = async (salePropertyID, res) => {
+  const existsInSaleHistory = await Models.SaleHistory.findOne({
     where: {
       sale_property_id: salePropertyID,
     },
-  })
-    .then((data) => {
-      if (data) exists = true;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  });
 
-  if (!exists) {
-    const query = `
+  if (existsInSaleHistory) {
+    return res.status(404).send({
+      result: 404,
+      message: `Property already exists in sale history`,
+    });
+  }
+
+  const query = `
   INSERT INTO sale_history
   (
     sale_property_id,
@@ -170,14 +168,14 @@ const moveToSaleHistory = async (salePropertyID) => {
   WHERE sale_status = 'Sold'
   AND sale_property_id = ${salePropertyID}`;
 
-    try {
-      await sequelize.query(query);
-      console.log("Successfully moved to sale history");
-    } catch (err) {
-      console.log(err);
-    }
-  } else {
-    console.log("Sale Property already exists in sale history");
+  try {
+    await sequelize.query(query);
+    res.send({
+      result: 200,
+      message: "Property Successfully sold and added to sale history",
+    });
+  } catch (err) {
+    res.status(500).send({ result: 500, error: err.message });
   }
 };
 
